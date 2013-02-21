@@ -3,4 +3,18 @@
 initial try to get edges, calculate angles on geometric obects - triangles, squares etc.
 then move to stock cow images
 then approach sharif w working code for trianing set.
+## ask MALMO for bcs pictures?
+# uultimately use stereo vision to get more accurate picture/angles?
+## could use high contrast (Silver?) background of each camera to 
+#### camera contorl and link to RFID reader/laser gate to activate cameras - hard wired? solenoind?
+##### webcams?? hjow select correct picture? - squirrel turrent idea?
+#
+#
+# essentially a classification task - get predictors - angles, volume etc, and predict bcs - need neural nets?
+# # SVM? KNN?
+#
+# maybe initial installation and bcs of all cows, use to train model specific to each farms conditions?
+#
+# marketing - gea? deleval?
+#
 
