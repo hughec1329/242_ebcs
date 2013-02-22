@@ -9,7 +9,7 @@ Discussion with duncan 20130222
 - big project but good to get into it.
 
 ### classification  methods
-- he favour simple - decicion trees, PCA, LDA.
+- he favour simple - decicion trees, PCA, LDA, clustering, KNN.
 
 ### variable creation - acwuire image then convert to list of variables for modelling.
 - need to get points, then establish angles between them
