@@ -47,6 +47,8 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 - description extractor - http://docs.opencv.org/modules/features2d/doc/common_interfaces_of_descriptor_extractors.html?highlight=surfdescriptorextractor#surfdescriptorextractor
 
 
+- wavelets - extract edges and verticies to model on .
+-- is this haar decompisition?
 
 Image collection
 ===
@@ -57,3 +59,9 @@ multiple views/angles - stereo/3d imaging??
 trigger w laser a' la 
 http://www.instructables.com/id/Laser-Triggered-High-Speed-Photography/step3/The-Circuit/
 http://www.pixiq.com/article/camera-laser-trigger
+
+
+Cowrecognition
+===
+- use patterns of cow hide to actually id cows - more reliable than RFID?
+
