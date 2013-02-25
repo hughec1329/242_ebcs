@@ -61,6 +61,8 @@ http://www.instructables.com/id/Laser-Triggered-High-Speed-Photography/step3/The
 http://www.pixiq.com/article/camera-laser-trigger
 
 
+- take mulitple views - angle on leg, side hip etc.
+
 Cowrecognition
 ===
 - use patterns of cow hide to actually id cows - more reliable than RFID?
