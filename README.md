@@ -67,3 +67,11 @@ Cowrecognition
 ===
 - use patterns of cow hide to actually id cows - more reliable than RFID?
 
+
+websites
+===
+http://www.shervinemami.info/faceRecognition.html
+http://computer-vision-talks.com/2012/12/mastering-opencv-with-practical-computer-vision-projects/
+http://www.pages.drexel.edu/~nk752/tutorials.html
+http://www.simplecv.org/learn/examples/parking.html
+
