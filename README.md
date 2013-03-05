@@ -50,6 +50,10 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 - wavelets - extract edges and verticies to model on .
 -- is this haar decompisition?
 
+### SIFT
+* feature extraction w geometrical - size angle information form set of training images.
+* http://jayrambhia.wordpress.com/2013/01/18/sift-keypoint-matching-using-python-opencv/
+
 Image collection
 ===
 
@@ -74,4 +78,5 @@ http://www.shervinemami.info/faceRecognition.html
 http://computer-vision-talks.com/2012/12/mastering-opencv-with-practical-computer-vision-projects/
 http://www.pages.drexel.edu/~nk752/tutorials.html
 http://www.simplecv.org/learn/examples/parking.html
-
+http://www.aishack.in/
+http://jayrambhia.wordpress.com/2013/01/18/sift-keypoint-matching-using-python-opencv/
