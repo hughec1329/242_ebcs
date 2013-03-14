@@ -49,6 +49,7 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 
 - wavelets - extract edges and verticies to model on .
 -- is this haar decompisition?
+- cvHaarDetectObjects is implementation of violoia jones algorithm
 
 ### SIFT
 * feature extraction w geometrical - size angle information form set of training images.
@@ -58,14 +59,22 @@ Image collection
 ===
 
 Could use high contrast background to get better image
-multiple views/angles - stereo/3d imaging??
 
 trigger w laser a' la 
 http://www.instructables.com/id/Laser-Triggered-High-Speed-Photography/step3/The-Circuit/
 http://www.pixiq.com/article/camera-laser-trigger
 
+3D?
+===
+- multiple views/angles - stereo/3d imaging??
 
 - take mulitple views - angle on leg, side hip etc.
+
+- kinect - 
+
+http://blogs.msdn.com/b/kinectforwindows/archive/2012/11/05/kinect-fusion-coming-to-kinect-for-windows.aspx
+
+http://www.cs.washington.edu/rgbd-dataset/index.html
 
 Cowrecognition
 ===
