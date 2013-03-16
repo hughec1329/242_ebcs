@@ -7,6 +7,7 @@ from PIL import Image
 from pylab import *
 import numpy as np
 import cv
+import itertools
 from skimage import filter
 
 def get_imlist(path,ext):
@@ -31,6 +32,15 @@ moo = cv.LoadImage("./cows/elanco/200.jpg")
 stor = cvCreateMemStorage(0)
 cv.FindContours(cv.fromarray(daisy),storself.# nothing?
 cv.Dra
+
+## should use cv2
+import cv2
+cvin = cv2.imread(".cows/elanco/200.jpg")
+detector = cv2.FeatureDetector_create("SIFT")
+descriptor = cv2.DescriptorExtractor_create("SIFT") 		# build feature extractor.
+
+grid_d = cv2.GridAdaptedFeatureDetector(detector,100) 		# extract 100 features
+
 
 
 # contour detection
