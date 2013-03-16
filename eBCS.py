@@ -41,9 +41,23 @@ detector = cv2.FeatureDetector_create("SIFT")
 descriptor = cv2.DescriptorExtractor_create("SIFT") 		# build feature extractor.
 
 dt = detector.detect(cvin)
+imshow(cv2.drawKeypoints(cvin,dt))  	# SIFT seems to get better kp.
+
+
 ## WROKING - return dt.pt, .size, .angle - all things to model on? can determine which important using PCA? need to find same features in each.
 
 grid_d = cv2.GridAdaptedFeatureDetector(detector,100) 		# extract 100 features
+
+imshow(cv2.drawKeypoints(cvin,grid_d.detect(cvin))  		# grid holds to 100 - getting them up in head region  - crop on way in?
+
+
+cv2.DescriptorMatcher_create(
+
+## also using SURF - 
+wave = cv2.SURF(400)
+y = wave.detect(cvin) 		# get keypoints
+
+imshow(cv2.drawKeypoints(cvin,y)) 	# draw them
 
 
 

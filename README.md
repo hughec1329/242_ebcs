@@ -55,6 +55,10 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 * feature extraction w geometrical - size angle information form set of training images.
 * http://jayrambhia.wordpress.com/2013/01/18/sift-keypoint-matching-using-python-opencv/
 
+### SURF
+* training w KNN to id.
+* http://stackoverflow.com/questions/10984313/opencv-2-4-1-computing-surf-descriptors-in-python
+
 Image collection
 ===
 
