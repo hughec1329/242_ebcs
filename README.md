@@ -80,6 +80,11 @@ http://blogs.msdn.com/b/kinectforwindows/archive/2012/11/05/kinect-fusion-coming
 
 http://www.cs.washington.edu/rgbd-dataset/index.html
 
+Contour
+===
+- can just get contour, approx to poly and model on this?
+
+
 Cowrecognition
 ===
 - use patterns of cow hide to actually id cows - more reliable than RFID?
