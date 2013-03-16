@@ -35,9 +35,13 @@ cv.Dra
 
 ## should use cv2
 import cv2
-cvin = cv2.imread(".cows/elanco/200.jpg")
+cvin = imread(".cows/elanco/200.jpg")
+# cvin2 = cv2.cvtColor(cvin, cv2.COLOR_BGR2GRAY) 			# convert color to bgay - not working?
 detector = cv2.FeatureDetector_create("SIFT")
 descriptor = cv2.DescriptorExtractor_create("SIFT") 		# build feature extractor.
+
+dt = detector.detect(cvin)
+## WROKING - return dt.pt, .size, .angle - all things to model on? can determine which important using PCA? need to find same features in each.
 
 grid_d = cv2.GridAdaptedFeatureDetector(detector,100) 		# extract 100 features
 
