@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage{graphicx}
+\usepackage{graphicx,subcaption}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{listings}
@@ -21,7 +21,8 @@
 	\tableofcontents
 
 	\begin{abstract}
-		bbadsfa
+		The application of Image recognition and classification to dairy cow Body Condition Scoring is investigated.
+		The Python interface to openCV is used to extract image features, and machine learning/classification techniques within package scikit-learn are used to estimate cow Body condition score.
 	\end{abstract}
 
 \newpage
@@ -33,6 +34,13 @@
 		To overcome this limitation, various body condition scoring systems have been developed to objectively measure body condition and fat cover, a more sensitive indication of weight loss that may indicate subobtimal managment or subclinical disease\cite{Wildman1982}.
 		These scoring systems have proven an important managment tool and accurate monitoring will assist animal health, milk production, and reproduciton in the modern dairy cow \cite{Buckley2003}.
 
+
+		\begin{figure}[b!]
+			\centering
+			\includegraphics[scale=0.3]{calf.jpg}
+			\caption{North American Holstein dairy heifer from a farm located in the Central Valley, California.}
+			\label{fig:<+label+>}
+		\end{figure}<++>
 
 		Traditionally body condition score (BCS) was recorded by a trained observer over an 5 or 8 point scale\cite{Bewley2010}, but the time involved to collect and interpret this data has meant herd-wide BCS has rarely been used on commercial dairies.
 		For this reason there has been recent interest in the automation of BCS, and various techiniques have been developed.
@@ -53,8 +61,20 @@
 		The Research Objective is to investigate the application of computer vision and machine learning techniques to Body Condition Score dairy cattle.
 		The study hypothesis is that these techniqus will provide a fast, cost effective technique to BCS a dairy herd and prove a valuabl emangment aid.
 
-
+\newpage
 \section{Methods}
+	\subsection{BCS Technique}
+		The body condition scoring process takes a combination of subjective measurements of fat cover over various anatomical landmarks to decide on a final score.
+		The prominence of the hips, tailhead, and spine, as well as the angles between these landmarks are important in making an accurate decion.
+		Using image recognition tools we will try to emulate this decicion process, first locating the landmarks and then calculating angles and distance between them.
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.3]{bcseg.jpg}
+		\caption{An example of features used to classify BCS in dairy cows. \cite{Elanco}}
+		\label{fig:<+label+>}
+	\end{figure}
+
 
 \subsection{Software}
 	Opencv is an open source computer recognition library written in C with a BSD licence \cite{opencv_library}.
@@ -97,15 +117,8 @@
  	A soloution to this problem was propsed by Jianfei \cite{Jianfei2011} and involved examining the grey histogram of a sample of cow pictures.
 	The normal values for grey whites and grey blacks of most cows were extracted and a threshold based on the median of these two valuse computed.
 	By mapping all values above this threshold (whites) to their equivelent value below this threshold (blacks), the black and white cow is converted to a black cow, while retailing shadow intensities that may assist in classification.
-
+\newpage
 \subsection{Feature Extraction}
-	Body condition scoring uses a combination of multiple landmarks to classify a cow into a body condition class, as shown below.
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[scale=0.3]{bcseg.jpg}
-		\caption{An example of features used to classify BCS in dairy cows. \cite{Elanco}}
-		\label{fig:<+label+>}
-	\end{figure}<++>
 
 
 	I identified two distinct approaches to take to converting the image into a data frame of variables that could be used to classif a cow's BCS.
@@ -120,7 +133,7 @@
 
 
 
-	Another technique widely used in facial recognition is the detection of Haar-like features, developed by Viola and Jones \cite{Electric2004}.
+	Another technique widely used in facial recognition is the detection of Haar-like features, developed by Viola and Jones\cite{viola2004}.
 	Haar-like features are detected by considering adjacent rectangular areas of an image, summing the pixel intesities and calculating a differnce. 
 	By altering the size of the rectangular detection window and moving it consectutively around an image, the differences encountered are compared to learned differences stored in a trained Haar Cascade.
 	Each feature alone this is a poor classifier but many features of different size and location are combined and passed down a a boosting cascade to achive good classification results very quickly.
@@ -168,17 +181,52 @@
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[scale=0.3]{SIFT.jpeg}
-		\caption{An example of features (colored circles, n=250) extracted from a cow image.}
+		\caption{An example of features (colored circles, n=250) extracted  using the SIFT algorithm from a cow image.}
 	\end{figure}
 
 
 \subsection{Training and Classification}
+	Once the image has been converted to a series of variables we can train a classifier on a set of human scored cows/images, and then asses it's accracy on new 'test' cows.
+	Our client's milk parlours are processing on average ~200 cows per hour, so a large amount of training images could be collected and scored quickly. 
+	Tha availability of vet student labour/'teaching exercises' would also expedite this process.
 
-	no images but will collect. 
-	try to keep simple - knn -  2 options - slow and accurate - run on server overnight? or fast.
-	compare edges to contour to features.
+
+	Based on personal experince body scoring cattle I anticipate the most accurate prediction of BCS to come from either contouring or feature extraction (with or without variables derived from distance and angles between keypoints)
+	After running the images through the preprocessing steps above to generate features, the resulting training dataset can be tried with various classifiing techniques and cross validation and confusion matricies used to assess accuracy.
+
+
+	Techniques to attempt include: 
+
+	\begin{itemize}
+		\item Discriminant Analysis - 
+		\item k Nearest Neighbours - 
+		\item Classification and Decicion trees (CART) - 
+		\item Ensemble methods - A combination of above weak classifiers can be combined and each 
+		\item Neural Networks - 
+	\end{itemize}
+
+	The accuracy and speed for each combinatino of feature and classifier will be assesed.
+	Ideally the image processing and classification step would all take place in real time and hence a fast algorithm is recwuired. 
+	If, however, it was discovered during testing that a slower algorithm was signifigantly more accurate then it would be possible to perform the classification in two stages, collection of images from daily milking's, and then processing of images by a more powerful server onsite or at our research facility. 
+
 
 \section{Conculusion}
+	Through my brief research 
+	I will be retrungin to the VMTRC in the summer and anticipate collecting images and applying these techniques then.
+
+	Future directions for this project to explore include:
+	\begin{itemize}
+		\item The combination of multiple cameras to get a 3d 'stereo' view of cow. This would allow depth measurements to be computed, giving an indication of the fat fill between landmarks.
+		\item Using a Microsoft Kinect sensor would also provide this depth imformation, and is a cheap and proven method for 3d modelling.
+		\item The use of single/multiple video monitors. This would eliminate the need for infared triggers to operate camera, a function could be written to detect when a cow is present in the frame and then select the best image from the video feed. Multiple frames could also be measured and the clasification combined to improve prediction accuracy.
+		\item Expansion of cow recognition techniques to diagnose lameness in dairy cattle. Lameness is also an important animal health and production issue on the modern dairy, and techniques similar to those mentioned above could be used to measure this.
+			Lame cows walk slowly with an arched back and shirt gait, measurement on spine angle and stride length have been shown to be predictive of lamensss score\cite{Viazzi2013,Pluk2012}
+		\item The combination of all the above techniques with cow recognition by assessing coat color. This would alleviate the reliance on finicky RFID detectors but assumes that each cow has a signifigantly diffeerent coat pattern to allow accurate identification.
+	\end{itemize}
+
+	Integration of these techniques with herd managment software and automatic drafting gates 
+
+
 	good technique, need more time
 	will ge timages and play in summer
 	coursera videos to watch.
