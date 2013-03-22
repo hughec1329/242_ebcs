@@ -1,8 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage{graphicx,subcaption}
-\usepackage{hyperref}
-\usepackage{fancyhdr}
-\usepackage{listings}
+\usepackage{listings,fancyhdr,hyperref,graphicx,subfig}
 \pagestyle{fancy}
 \fancyhead{}
 \fancyfoot{}
@@ -11,10 +8,10 @@
 \fancyfoot[RO]{STA242 - Cow eBCS}
 \renewcommand{\footrulewidth}{0.4 pt}
 \renewcommand{\headrulewidth}{0 pt}
-
 \hypersetup{colorlinks = true, linkcolor = blue, citecolor = blue}
+
 \title{STA 242 - Final Project - Predicting Cow Body Condition Score from an Image}
-\author{Hugh Crockford\\
+\author{\Large{\textsc{Hugh Crockford}}\vspace{0.25in}\\
 	Dairy Production Medicine Resident,\\
 	Veterinary Medicine Teaching \& Research Center,\\
 	University of California, Davis.\\
@@ -22,7 +19,22 @@
 }
 \date{\today}
 \begin{document}
-	\maketitle
+
+\begin{center}
+	\vspace*{0.3in}
+	\LARGE STA 242 - Final Project \\ 
+	\Large \emph{Predicting Cow Body Condition Score from an Image} \\ 
+	\vspace{0.25in}
+	\normalsize \today  // Winter 2013 // Prof. Temple Lang // UC Davis\\ 
+	\vspace{0.25in}
+	\textsc{Hugh Crockford}\\
+	\vspace{0.1in}
+	Dairy Production Medicine Resident,\\
+	Veterinary Medicine Teaching \& Research Center,\\
+	University of California, Davis.\\
+\end{center}
+
+
 	\tableofcontents
 
 	\begin{abstract}
@@ -32,46 +44,46 @@
 
 \newpage
 \section{Introduction}
-		The US dairy industry produces \$140 Billion in economic output annualy, and is Californias top Agricultural output. \cite{cmab13}. 
+		The US dairy industry produces \$140 Billion in economic output annually, and is California's top Agricultural output. \cite{cmab13}. 
 		In the US dairy cattle tend to be intensively managed in large groups, with high standards of feeding and animal husbandry resulting in very high levels of milk output per cow.
 		This high intensity production can cause various animal health problems, which will result in weight loss and reduced production.
-		Subjective weight loss has been used for some time to identify subclinically diseased animals, however the difficulty in getting an accurate measurement and large day-to-day weight fluctutation due to feeding and watering mean actual weight is a poor predictor of body fat reserves\cite{Roche2004} .
-		To overcome this limitation, various body condition scoring systems have been developed to objectively measure body condition and fat cover, a more sensitive indication of weight loss that may indicate subobtimal managment or subclinical disease\cite{Wildman1982}.
-		These scoring systems have proven an important managment tool and accurate monitoring will assist animal health, milk production, and reproduciton in the modern dairy cow \cite{Buckley2003}.
+		Subjective weight loss has been used for some time to identify subclinically diseased animals, however the difficulty in getting an accurate measurement and large day-to-day weight fluctuations due to feeding and watering mean actual weight is a poor predictor of body fat reserves\cite{Roche2004} .
+		To overcome this limitation, various body condition scoring systems have been developed to objectively measure body condition and fat cover, a more sensitive indication of weight loss that may indicate suboptimal management or subclinical disease\cite{Wildman1982}.
+		These scoring systems have proven an important management tool and accurate monitoring will assist animal health, milk production, and reproduction in the modern dairy cow \cite{Buckley2003}.
 
 
-		\begin{figure}[b!]
-			\centering
-			\includegraphics[scale=0.3]{calf.jpg}
-			\caption{North American Holstein dairy heifer from a farm located in the Central Valley, California.}
-			\label{fig:<+label+>}
-		\end{figure}<++>
 
 		Traditionally body condition score (BCS) was recorded by a trained observer over an 5 or 8 point scale\cite{Bewley2010}, but the time involved to collect and interpret this data has meant herd-wide BCS has rarely been used on commercial dairies.
-		For this reason there has been recent interest in the automation of BCS, and various techiniques have been developed.
+		For this reason there has been recent interest in the automation of BCS, and various techniques have been developed.
 
 
-		Bewley used landmarks and angles identifed by hand on digital images of cattle to predict BCS using mixture models \cite{Bewley2008}, however the daily tagging of thousands of images in large farm would be unfesable.
+		Bewley used landmarks and angles identified by hand on digital images of cattle to predict BCS using mixture models \cite{Bewley2008}, however the daily tagging of thousands of images in large farm would be unfeasible.
 		Hamachi investigated the use of a thermal camera to acquire an image, which had a contour fitted and then used polygon approximation to fit a parabola curve to the cow rump. This equation and distance from the line was used to estimate BCS, however low number of cattle and difficulty in automating this workflow limit the use of this technique \cite{Halachmi2008}. 
 		Arias used neural networks and automatic image recognition to extract morphologic features from a cow's body based on color differences \cite{Arias2004}. 
 
 		
 		Cows are milked at least once a day, sometimes up to 4 times per day so are all present at the milking parlour during this time.
-		Automatic image collection on the exit race of the milking parlour using infared operated cameras or a constant video feed can be coupled with cow identification data from RFID tags to gather multiple images of each cow daily.  
+		Automatic image collection on the exit race of the milking parlour using infrared operated cameras or a constant video feed can be coupled with cow identification data from RFID tags to gather multiple images of each cow daily.  
 		This project will investigate the post-processing of these images, feature extraction, and machine learning techniques to classify a cow into a body condition class.  
 
 
 		The techniques developed from this project could also be utilised in the estimated 29.3 Billion beef cows in the United States\cite{USDA2013} and billions of cattle worldwide.
 
 		The Research Objective is to investigate the application of computer vision and machine learning techniques to Body Condition Score dairy cattle.
-		The study hypothesis is that these techniqus will provide a fast, cost effective technique to BCS a dairy herd and prove a valuabl emangment aid.
+		The study hypothesis is that these techniques will provide a fast, cost effective technique to BCS a dairy herd and prove a valuable management aid.
 
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.3]{calf.jpg}
+			\caption{North American Holstein dairy heifer from a farm located in the Central Valley, California.}
+			\label{fig:<+label+>}
+		\end{figure}<++>
 \newpage
 \section{Methods}
 	\subsection{BCS Technique}
 		The body condition scoring process takes a combination of subjective measurements of fat cover over various anatomical landmarks to decide on a final score.
-		The prominence of the hips, tailhead, and spine, as well as the angles between these landmarks are important in making an accurate decion.
-		Using image recognition tools we will try to emulate this decicion process, first locating the landmarks and then calculating angles and distance between them.
+		The prominence of the hips, tailhead, and spine, as well as the angles between these landmarks are important in making an accurate decision.
+		Using image recognition tools we will try to emulate this decision process, first locating the landmarks and then calculating angles and distance between them.
 
 	\begin{figure}[h!]
 		\centering
@@ -88,71 +100,68 @@
 
 	I chose to use the python interface as python also has well developed image processing and data analysis/machine learning tools provided by the imtools, PIL, pandas, scikit-learn, scipy and numpy libraries.
 
+	\newpage
 \subsection{Image Preprocessing}
 	A major problem in any image recognition task is lighting and scale differences between images.
-	As my proposed image collection procedure was set up in a fairly static environemnt where I could control lighting and camera position, this was less of an issue, however the images still had to be processed into a form that would allow the feature extraction to take place.
+	As my proposed image collection procedure was set up in a fairly static environment where I could control lighting and camera position, this was less of an issue, however the images still had to be processed into a form that would allow the feature extraction to take place.
 
 
 	PIL (python image library) has various tools for importing and manipulating images, and can also access live video streams from a webcam.
 	OpenCV2 loads an image as a numpy array with each pixel a tuple of RGB values which facilitates manipulation.
 
 
-	Many techniques first pass the image through a guassian blur to reduce noise and detail and enhance image structure. 
-	Manipulating the gaussian blur radius can signifigantly reduce noise in an image, imporving the performance of edge detecting algorithms such as the 2-d Laplacian filter.
-	As many of the feautre extraction alogripths rely on a single measure of intensity for each pixel, convertign the image to greyscale is normally the next step.
+	Many techniques first pass the image through a Gaussian blur to reduce noise and detail and enhance image structure. 
+	Manipulating the Gaussian blur radius can significantly reduce noise in an image, improving the performance of edge detecting algorithms such as the 2-d Laplacian filter.
+	As many of the feature extraction algorithms rely on a single measure of intensity for each pixel, converting the image to greyscale is normally the next step.
 
 	\begin{figure}[h!]
 		\centering
-		\begin{subfigure}
-			\includegraphics[scale=0.3]{blurcowgrey.jpg}
-		\end{subfigure}
-		\begin{subfigure}
-			\includegraphics[scale=0.3]{daisy.png}
-		\end{subfigure}
-		\caption{An example of image preprocessing on our test cow 'Daisy' - original on left, image with gaussian blur and converted to greyscale on right.}
+		\parbox{5cm}{\includegraphics[width=4cm]{daisy.png}}
+		\parbox{5cm}{\includegraphics[width=7cm]{blurcowgrey.jpg}}
+		\caption{An example of image preprocessing on our test cow 'Daisy' - original on left, image with Gaussian blur and converted to greyscale on right.}
 	\end{figure}
 
 
 	Thresholding is another technique to identify objects within an image.
-	The image is converted to a binary form by setting a threshold for each pixel, any pixel of intensity larger than the threshold cahnged to 0, and any belo to 1. 
-	This technique is commonly employed with earlier generationn canny edge detection (see later), which relied on a white object on a black background.
-	Thresholdin gcan be useful when trying to identify an object of a single color against a background of another color. 
+	The image is converted to a binary form by setting a threshold for each pixel, any pixel of intensity larger than the threshold changed to 0, and any below to 1. 
+	This technique is commonly employed with earlier generation canny edge detection (see later), which relied on a white object on a black background.
+	Thresholding can be useful when trying to identify an object of a single color against a background of another color. 
 	The intensity of that color can be extracted from the histogram for each pixel and a threshold set for it.
-	An aspect of image acquisition I will investigate is the manipuation of background color, however due to the nature of the environemnt (milking barn with cattle faeces) it may be unfesable to change this.
+	An aspect of image acquisition I will investigate is the manipulation of background color, however due to the nature of the environment (milking barn with cattle faeces) it may be unfeasible to change this.
 
 
-	While thresholding would improve edge/feature detection, I had a uniqe problem in that the north american holstein has a black and white coat.
+	While thresholding would improve edge/feature detection, I had a unique problem in that the north American Holstein has a black and white coat.
 	If the thresholding/feature recognition algorithms were run on the raw image they would pick up every change in coat color as an edge/contour, but this feature has nothing to do with Body condition score (for further explanation please see discussion).
- 	A soloution to this problem was propsed by Jianfei \cite{Jianfei2011} and involved examining the grey histogram of a sample of cow pictures.
-	The normal values for grey whites and grey blacks of most cows were extracted and a threshold based on the median of these two valuse computed.
-	By mapping all values above this threshold (whites) to their equivelent value below this threshold (blacks), the black and white cow is converted to a black cow, while retailing shadow intensities that may assist in classification.
+ 	A solution to this problem was proposed by Jianfei \cite{Jianfei2011} and involved examining the grey histogram of a sample of cow pictures.
+	The normal values for grey whites and grey blacks of most cows were extracted and a threshold based on the median of these two values computed.
+	By mapping all values above this threshold (whites) to their equivalent value below this threshold (blacks), the black and white cow is converted to a black cow, while retailing shadow intensities that may assist in classification.
 \newpage
 \subsection{Feature Extraction}
 
 
-	I identified two distinct approaches to take to converting the image into a data frame of variables that could be used to classif a cow's BCS.
+	I identified two distinct approaches to take to converting the image into a data frame of variables that could be used to classify a cow's BCS.
 
 	\subsubsection{Using whole picture}
 	I initially looked into facial recognition techniques to see if I could adopt the large amount of work that has been done in this are to cows.
-	Eigenfaces were the earliest succesful implementation of facial recognition, developed in 1987 by Sirovich and Kirby.
-	The eigenfaces are found by pefroming PCA on the covariance matrix of a large number of face pictures, producing an 'average' face or set of standardised facial ingredients to which any face can be mapped to.
+	Eigenfaces were the earliest successful implementation of facial recognition, developed in 1987 by Sirovich and Kirby.
+	The eigenfaces are found by preforming PCA on the covariance matrix of a large number of face pictures, producing an 'average' face or set of standardised facial ingredients to which any face can be mapped to.
 	A serious limitation of eigenfaces is their sensitivity to light and scale/rotation. 
 	Since the image is represented as a vector of pixel intensities, if the position of a feature in the image changes, the corresponding pixel intensities will not line up with the eigenfaces and hence a match will not occur.
-	Eigenfaces for cow BCS recognition would not be effective as the 'eigencows' will get swanped by coat patterns rather than focusing on size and angles of anatomical landmarks.
+	Eigenfaces for cow BCS recognition would not be effective as the 'eigencows' will get swamped by coat patterns rather than focusing on size and angles of anatomical landmarks.
 
 
 
 	Another technique widely used in facial recognition is the detection of Haar-like features, developed by Viola and Jones\cite{viola2004}.
-	Haar-like features are detected by considering adjacent rectangular areas of an image, summing the pixel intesities and calculating a differnce. 
-	By altering the size of the rectangular detection window and moving it consectutively around an image, the differences encountered are compared to learned differences stored in a trained Haar Cascade.
-	Each feature alone this is a poor classifier but many features of different size and location are combined and passed down a a boosting cascade to achive good classification results very quickly.
+	Haar-like features are detected by considering adjacent rectangular areas of an image, summing the pixel intensities and calculating a difference. 
+	By altering the size of the rectangular detection window and moving it consecutively around an image, the differences encountered are compared to learned differences stored in a trained Haar Cascade.
+	Each feature alone this is a poor classifier but many features of different size and location are combined and passed down a boosting cascade to achieve good classification results very quickly.
 	
 
 	As rump shape changes dramatically from a skinny, angular cow to a round fat cow another method of predicting BCS is to edge detect on cow images.
-	Canny developed an edge detection algorithm that examined the first order dervitive of the intensity gradient in multiple directions, in order to detect vertical horizontal and diaganol edges\cite{Canny1986}.
-	The edges that are located are then passed through various threshold filters to remove noise and ensure edges are continous
-	Using this method, an outline of the cow can be generated (cow contour), as well the lines represnting important anatomical landmarks such as hooks, pins and tailhead.
-	Edges are represented in a binary array, so assuming each image is sdjusted for scale and rotaion, the location of edges would serve as good predictors of BCS.
+	Canny developed an edge detection algorithm that examined the first order derivative of the intensity gradient in multiple directions, in order to detect vertical horizontal and diagonal edges\cite{Canny1986}.
+	The edges that are located are then passed through various threshold filters to remove noise and ensure edges are continuous
+	Using this method, an outline of the cow can be generated (cow contour), as well the lines representing important anatomical landmarks such as hooks, pins and tailhead.
+	Edges are represented in a binary array, so assuming each image is adjusted for scale and rotation, the location of edges would serve as good predictors of BCS.
 
 	% harris corner detection?
 
@@ -170,8 +179,8 @@
 	The second distinct approach to converting cow images to something we can predict BCS with is Feature detection.
 
 
-	Features are uniqe areas of an image that can be repeatedy identified.
-	Theay are often used when tryign to identify an object within a scene, by first extracting invariant features from a training set of images and then searching the scene for these features and matching the object.
+	Features are unique areas of an image that can be repeatedly identified.
+	They are often used when trying to identify an object within a scene, by first extracting invariant features from a training set of images and then searching the scene for these features and matching the object.
 
 
 	The moment is a measure of the shape of set of points and can reveal dimensions, area, and orientation. 
@@ -181,10 +190,10 @@
 
 	
 	Scale invariant Feature transform is a method for extracting features developed by David Lowe at University of British Columbia\cite{Lowe2004a}.
-	The method involves scanning resampled images for maxima and minima of difference of gaussian functions.
+	The method involves scanning resampled images for maxima and minima of difference of Gaussian functions.
 	These locations are mapped and their orientation and dimensions stored as a keypoint which can then be matched to a new image using k nearest neighbours or FLANN. 
-	A key advantage of this method is the resulting keypoints are invariant to scale. lighting, and orientation changes, which is important in our application as we have little control on how the cow is positioned in the image.
-	If keypoints could reliably extracted from important anatomical landmarks and then the location and distance/angle between points caclculated BCS could accurately be predicted.
+	A key advantage of this method is the resulting keypoints are invariant to scale, lighting, and orientation changes, which is important in our application as we have little control on how the cow is positioned in the image.
+	If keypoints could reliably extracted from important anatomical landmarks and then the location and distance/angle between points calculated BCS could accurately be predicted.
 	A serious disadvantage of this method is it is copyrighted, and while a part of the openCV library I'm assuming any commercial use would violate this copyright.
 
 	\begin{figure}[h!]
@@ -195,13 +204,13 @@
 
 
 \subsection{Training and Classification}
-	Once the image has been converted to a series of variables we can train a classifier on a set of human scored cows/images, and then asses it's accracy on new 'test' cows.
+	Once the image has been converted to a series of variables we can train a classifier on a set of human scored cows/images, and then asses it's accuracy on new 'test' cows.
 	Our client's milk parlours are processing on average ~200 cows per hour, so a large amount of training images could be collected and scored quickly. 
-	Tha availability of vet student labour/'teaching exercises' would also expedite this process.
+	The availability of vet student labour/'teaching exercises' would also expedite this process.
 
 
-	Based on personal experince body scoring cattle I anticipate the most accurate prediction of BCS to come from either contouring or feature extraction (with or without variables derived from distance and angles between keypoints)
-	After running the images through the preprocessing steps above to generate features, the resulting training dataset can be tried with various classifiing techniques and cross validation and confusion matricies used to assess accuracy.
+	Based on personal experience body scoring cattle I anticipate the most accurate prediction of BCS to come from either contouring or feature extraction (with or without variables derived from distance and angles between keypoints)
+	After running the images through the preprocessing steps above to generate features, the resulting training dataset can be tried with various classifying techniques and cross validation and confusion matrices used to assess accuracy.
 
 
 	Techniques to attempt include: 
@@ -209,31 +218,31 @@
 	\begin{itemize}
 		\item Discriminant Analysis - 
 		\item k Nearest Neighbours - 
-		\item Classification and Decicion trees (CART) - 
+		\item Classification and Decision trees (CART) - 
 		\item Ensemble methods - A combination of above weak classifiers can be combined and each 
 		\item Neural Networks - 
 	\end{itemize}
 
-	The accuracy and speed for each combinatino of feature and classifier will be assesed.
-	Ideally the image processing and classification step would all take place in real time and hence a fast algorithm is recwuired. 
-	If, however, it was discovered during testing that a slower algorithm was signifigantly more accurate then it would be possible to perform the classification in two stages, collection of images from daily milking's, and then processing of images by a more powerful server onsite or at our research facility. 
+	The accuracy and speed for each combination of feature and classifier will be assessed.
+	Ideally the image processing and classification step would all take place in real time and hence a fast algorithm is required. 
+	If, however, it was discovered during testing that a slower algorithm was significantly more accurate then it would be possible to perform the classification in two stages, collection of images from daily milking's, and then processing of images by a more powerful server onsite or at our research facility. 
 
-
-\section{Conculusion}
-	My brief research into computer vision with python has revealed the capabilites and limitations of various techniques, and I antipate retuning to the VMTRC in the summer collecting images and applying these techniques then.
+\newpage
+\section{Conclusion}
+	My brief research into computer vision with python has revealed the capabilities and limitations of various techniques, and I anticipate retuning to the VMTRC in the summer collecting images and applying these techniques then.
 	Provided a reliable, accurate, and cheap system could be developed, there is definitely a market among the large dairy farms in California and Worldwide.
 
 	Future directions for this project to explore include:
 	\begin{itemize}
 		\item The combination of multiple cameras to get a 3d 'stereo' view of cow. This would allow depth measurements to be computed, giving an indication of the fat fill between landmarks.
-		\item Using a Microsoft Kinect sensor would also provide this depth imformation, and is a cheap and proven method for 3d modelling.
-		\item The use of single/multiple video monitors. This would eliminate the need for infared triggers to operate camera, a function could be written to detect when a cow is present in the frame and then select the best image from the video feed. Multiple frames could also be measured and the clasification combined to improve prediction accuracy.
+		\item Using a Microsoft Kinect sensor would also provide this depth information, and is a cheap and proven method for 3d modelling.
+		\item The use of single/multiple video monitors. This would eliminate the need for infrared triggers to operate camera, a function could be written to detect when a cow is present in the frame and then select the best image from the video feed. Multiple frames could also be measured and the classification combined to improve prediction accuracy.
 		\item Expansion of cow recognition techniques to diagnose lameness in dairy cattle. Lameness is also an important animal health and production issue on the modern dairy, and techniques similar to those mentioned above could be used to measure this.
-			Lame cows walk slowly with an arched back and shirt gait, measurement on spine angle and stride length have been shown to be predictive of lamensss score\cite{Viazzi2013,Pluk2012}
-		\item The combination of all the above techniques with cow recognition by assessing coat color. This would alleviate the reliance on finicky RFID detectors but assumes that each cow has a signifigantly diffeerent coat pattern to allow accurate identification.
+			Lame cows walk slowly with an arched back and shirt gait, measurement on spine angle and stride length have been shown to be predictive of lameness score\cite{Viazzi2013,Pluk2012}
+		\item The combination of all the above techniques with cow recognition by assessing coat color. This would alleviate the reliance on finicky RFID detectors but assumes that each cow has a significantly different coat pattern to allow accurate identification.
 	\end{itemize}
 
-	Integration of these techniques with herd managment software and automatic drafting gates would provide dairyman with a valuable managemtn aid.
+	Integration of these techniques with herd management software and automatic drafting gates would provide dairyman with a valuable management aid.
 
 	\newpage
 
