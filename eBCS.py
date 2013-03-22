@@ -60,6 +60,11 @@ y = wave.detect(cvin) 		# get keypoints
 imshow(cv2.drawKeypoints(cvin,y)) 	# draw them
 
 
+# moments
+cv2.moments(daisy)
+
+## using daisy - greyscale from above
+daisy_kp = detector.detect(daisy)
 
 # contour detection
 
@@ -67,4 +72,30 @@ from skimage import measure
 moo = cv.LoadImage("./cows/elanco/200.jpg")
 cont = measure.find_contours(moo,0.8)
 
+daisy_cont = cv2.findContours(daisy,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE) 	# need a black background w white cow - threshold?Z
+cv2.drawContours(daisy,i,-1,(0,255,0),3)
 
+
+######
+# for writeup
+######
+import matplotlib.pyplot as plt
+
+cow = imread("./cows/real/25.png")
+cv.Flip(cv.fromarray(cow))
+imshow(cow)
+blurcow = cv2.GaussianBlur(cow,(31,31)) 	# apply filter
+blurgrey = cv2.cvtColor(blurcow,cv2.COLOR_RGB2GRAY)
+imshow(blurgrey,cmap = cm.Greys_r)					# show blurchow
+
+plt.hist(blurgrey)
+blackcow = np.where(blurgrey>180,blurgrey-180,blurgrey)
+plt.hist(blackcow)
+
+imshow(blackcow,cmap = cm.Greys_r)					# show blackcow
+
+
+
+
+
+imshow(cv2.cvtColor(blurcow,cv2.COLOR_HSV2GRAY))

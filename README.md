@@ -51,6 +51,17 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 -- is this haar decompisition?
 - cvHaarDetectObjects is implementation of violoia jones algorithm
 
+
+### preprocessing
+* http://opencvpython.blogspot.com/ - strip color?
+* a la jianfei article
+ 
+
+### Haar
+* http://opencv.willowgarage.com/documentation/object_detection.html
+* train Haar cascade on points - manually lable pins, spine etc?
+* then cvHaarDetect will find same regions again - can use locations.distance to measure?
+
 ### SIFT
 * feature extraction w geometrical - size angle information form set of training images.
 * http://jayrambhia.wordpress.com/2013/01/18/sift-keypoint-matching-using-python-opencv/
@@ -58,6 +69,14 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 ### SURF
 * training w KNN to id.
 * http://stackoverflow.com/questions/10984313/opencv-2-4-1-computing-surf-descriptors-in-python
+* http://robocv.blogspot.com/2012/02/real-time-object-detection-in-opencv.html
+
+### contours
+* http://www.thisismyrobot.com/2010/05/object-tracking-in-opencv-and-python-26.html
+* http://opticks.org/confluence/display/~tclarke/2012/02/09/Using+Python+and+OpenCV+to+calculate+and+draw+edge+contours
+
+### approx poly
+* http://stackoverflow.com/questions/11398387/measuring-an-object-from-a-picture-using-a-known-object-size
 
 Image collection
 ===
