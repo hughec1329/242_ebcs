@@ -223,12 +223,12 @@
 
 \subsection{Training and Classification}
 	Once the image has been converted to a series of variables we can train a classifier on a set of human scored cows/images, and then asses it's accuracy on new 'test' cows.
-	Our client's milk parlours are processing on average ~200 cows per hour, so a large amount of training images could be collected and scored quickly. 
+	Our client's milk parlours are processing on average ~200 cows per hour, so a large number of training images could be collected and scored quickly. 
 	The availability of vet student labour/'teaching exercises' would also expedite this process.
 
 
 	Based on personal experience body scoring cattle I anticipate the most accurate prediction of BCS to come from either contouring or feature extraction (with or without variables derived from distance and angles between keypoints)
-	After running the images through the preprocessing steps above to generate features, the resulting training dataset can be tried with various classifying techniques and cross validation and confusion matrices used to assess accuracy.
+	After running the images through the preprocessing steps above to generate features, the resulting training dataset can be tried with various classifying techniques, and cross validation and confusion matrices used to assess accuracy.
 
 
 	Techniques to attempt include: 
@@ -241,28 +241,28 @@
 		\item Neural Networks - 
 	\end{itemize}
 
-	The accuracy and speed for each combination of feature and classifier will be assessed.
+	The accuracy and speed for each combination of feature set and classifier will be assessed.
 	Ideally the image processing and classification step would all take place in real time and hence a fast algorithm is required. 
-	If, however, it was discovered during testing that a slower algorithm was significantly more accurate then it would be possible to perform the classification in two stages, collection of images from daily milking's, and then processing of images by a more powerful server onsite or at our research facility. 
+	If, however, it was discovered during testing that a slower algorithm was significantly more accurate then it would be possible to perform the classification in two stages, collection of images from exit lane, and then processing of images by a more powerful server onsite or at our research facility. 
 
 \newpage
 \section{Conclusion}
-	My brief research into computer vision with python has revealed the capabilities and limitations of various techniques, and I anticipate retuning to the VMTRC in the summer collecting images and applying these techniques then.
-	Provided a reliable, accurate, and cheap system could be developed, there is definitely a market among the large dairy farms in California and Worldwide.
+	My brief research into computer vision with python has revealed the capabilities and limitations of various techniques, and I anticipate returning to the VMTRC in the summer to collect images and apply these techniques.\\
+%	Provided a reliable, accurate, and cheap system could be developed, there is definitely a market among the large dairy farms in California and Worldwide.
 
 	Future directions for this project to explore include:
 	\begin{itemize}
 		\item The combination of multiple cameras to get a 3d 'stereo' view of cow. This would allow depth measurements to be computed, giving an indication of the fat fill between landmarks.
-			Using a 2d method we are relying on hollow areas been darker due to shading, and indirectly modelling depth.
+			Using our current 2d method we are relying on hollow areas been darker due to shading, and indirectly modelling depth.
 			This could also be manipulated by positioning lights around the image capture area to intensify these shadows and hence get a more accurate representation of depth.
 		\item Using a Microsoft Kinect sensor would also provide this depth information, and is a cheap and proven method for 3d modelling.
+			There are numerous libraries and developer kits available for 3d modelling with the kinect, and the ready availability and low cost make this an attractive option.
 		\item The use of single/multiple video monitors. This would eliminate the need for infrared triggers to operate camera, a function could be written to detect when a cow is present in the frame and then select the best image from the video feed. Multiple frames could also be measured and the classification combined to improve prediction accuracy.
-		\item Expansion of cow recognition techniques to diagnose lameness in dairy cattle. Lameness is also an important animal health and production issue on the modern dairy, and techniques similar to those mentioned above could be used to measure this.
-			Lame cows walk slowly with an arched back and shirt gait, measurement on spine angle and stride length have been shown to be predictive of lameness score\cite{Viazzi2013,Pluk2012}
-		\item The combination of all the above techniques with cow recognition by assessing coat color. This would alleviate the reliance on finicky RFID detectors but assumes that each cow has a significantly different coat pattern to allow accurate identification.
+		\item Expansion of cow recognition techniques to diagnose lameness in dairy cattle. Lame cows walk slowly with an arched back and short gait, and measurement of spine angle and stride length are predictive of lameness score \cite{Viazzi2013,Pluk2012}. The techniques above could be adapted to measure these variables and predict lameness score.
+		\item The combination of above techniques with cow recognition by coat color. This would remove reliance on finicky RFID detectors for cow ID but assumes that each cow has a significantly different coat pattern to allow accurate identification.
 	\end{itemize}
 
-	Integration of these techniques with herd management software and automatic drafting gates would provide dairyman with a valuable management aid.
+	Integration of these techniques with herd management software and automatic drafting gates would provide dairyman with a valuable management tool and improve animal health and production worldwide.
 
 	\newpage
 

@@ -69,9 +69,6 @@ daisy=imread("./cows/elanco/200.jpg")
 cv.Flip(cv.fromarray(daisy))
 daisygrey = cv2.cvtColor(daisy,cv2.COLOR_RGB2GRAY)
 
-daisy_cont = cv2.findContours(daisy,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE) 	# need a black background w white cow - threshold?Z
-cv2.drawContours(daisy,i,-1,(0,255,0),3)
-
 # for writeup
 import matplotlib.pyplot as plt
 
@@ -83,12 +80,11 @@ blurgrey = cv2.cvtColor(blurcow,cv2.COLOR_RGB2GRAY)
 imshow(blurgrey,cmap = cm.Greys_r)					# show blurchow
 
 plt.hist(blurgrey)
+bcmin = 132 - blurgrey 
 blackcow = np.where(blurgrey>180,blurgrey-180,blurgrey)
 plt.hist(blackcow)
 
-imshow(blackcow,cmap = cm.Greys_r)					# show blackcow
+imshow(blackcow,cmap = cm.Greys_r)					# show blackcow - wrong - should be blacker?- maybe how its using cmap to disp?
 
 daisy_cont = cv2.findContours(blurgrey,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE) 	# need a black background w white cow - threshold?Z
 cv2.drawContours(daisy,i,-1,(0,255,0),3)
-
-imshow(cv2.cvtColor(blurcow,cv2.COLOR_HSV2GRAY))
