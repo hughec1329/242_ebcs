@@ -129,8 +129,10 @@
 	As rump shape changes dramatically from a skinny, angular cow to a round fat cow another method of predicting BCS is to edge detect on cow images.
 	Canny developed an edge detection algorithm that examined the first order dervitive of the intensity gradient in multiple directions, in order to detect vertical horizontal and diaganol edges\cite{Canny1986}.
 	The edges that are located are then passed through various threshold filters to remove noise and ensure edges are continous
-	Using this method, an outline of the cow can be generated, as well the lines represnting important anatomical landmarks such as hooks, pins and tailhead.
+	Using this method, an outline of the cow can be generated (cow contour), as well the lines represnting important anatomical landmarks such as hooks, pins and tailhead.
 	Edges are represented in a binary array, so assuming each image is sdjusted for scale and rotaion, the location of edges would serve as good predictors of BCS.
+
+	% harris corner detection?
 
 	\begin{figure}[h!]
 		\centering
@@ -138,18 +140,40 @@
 		\caption{An example of Canny edge detection applied to 'Daisy' image from above (min threshold 5,max 15,kernel size 3) }
 		\label{fig:<+label+>}
 	\end{figure}
+\newpage
+
 
 	\subsubsection{Identifying landmarks and calculating distance/angles}
 
-	The second distinct approach to generating features to detect cow BCS is Feature detection.
-	moments
-	SIFT
-	SURF
+	The second distinct approach to converting cow images to something we can predict BCS with is Feature detection.
 
-	Actual feature extraction
+
+	Features are uniqe areas of an image that can be repeatedy identified.
+	Theay are often used when tryign to identify an object within a scene, by first extracting invariant features from a training set of images and then searching the scene for these features and matching the object.
+
+
+	The moment is a measure of the shape of set of points and can reveal dimensions, area, and orientation. 
+	These descriptors are invariant to scale and rotation, making them an attractive feature in image recognitions
+	After contouring via an edge detection (see above) moments can be extracted from an image, and the dimensions, angles, and location between these moments can be used to describe cow shape and hence predict BCS.
+
+
+	
+	Scale invariant Feature transform is a method for extracting features developed by David Lowe at University of British Columbia\cite{Lowe2004a}.
+	The method involves scanning resampled images for maxima and minima of difference of gaussian functions.
+	These locations are mapped and their orientation and dimensions stored as a keypoint which can then be matched to a new image using k nearest neighbours or FLANN. 
+	A key advantage of this method is the resulting keypoints are invariant to scale. lighting, and orientation changes, which is important in our application as we have little control on how the cow is positioned in the image.
+	If keypoints could reliably extracted from important anatomical landmarks and then the location and distance/angle between points caclculated BCS could accurately be predicted.
+	A serious disadvantage of this method is it is copyrighted, and while a part of the openCV library I'm assuming any commercial use would violate this copyright.
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.3]{SIFT.jpeg}
+		\caption{An example of features (colored circles, n=250) extracted from a cow image.}
+	\end{figure}
 
 
 \subsection{Training and Classification}
+
 	no images but will collect. 
 	try to keep simple - knn -  2 options - slow and accurate - run on server overnight? or fast.
 	compare edges to contour to features.
@@ -167,7 +191,7 @@
 		lameness
 
 \section{Code}
-	\lstinputlisting{eBCS.py}	
+\lstinputlisting[breaklines=TRUE]{eBCS.py}	
 
 \bibliographystyle{unsrt}
 \bibliography{ebcs}
