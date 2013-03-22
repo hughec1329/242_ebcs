@@ -14,7 +14,12 @@
 
 \hypersetup{colorlinks = true, linkcolor = blue, citecolor = blue}
 \title{STA 242 - Final Project - Predicting Cow Body Condition Score from an Image}
-\author{Hugh Crockford}
+\author{Hugh Crockford\\
+	Dairy Production Medicine Resident,\\
+	Veterinary Medicine Teaching \& Research Center,\\
+	University of California, Davis.\\
+	18830 Road 112, Tulare, CA. 93274\\
+}
 \date{\today}
 \begin{document}
 	\maketitle
@@ -71,7 +76,7 @@
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[scale=0.3]{bcseg.jpg}
-		\caption{An example of features used to classify BCS in dairy cows. \cite{Elanco}}
+		\caption{Cow anatomical features used to classify BCS in dairy cows. \cite{Elanco}}
 		\label{fig:<+label+>}
 	\end{figure}
 
@@ -98,9 +103,13 @@
 
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[scale=0.3]{blurcowgrey.jpg}
-		\caption{An example of image preprocessing on our test cow 'Daisy' - original on right, image with gaussian blur and converted to greyscale on right.}
-		\label{fig:<+label+>}
+		\begin{subfigure}
+			\includegraphics[scale=0.3]{blurcowgrey.jpg}
+		\end{subfigure}
+		\begin{subfigure}
+			\includegraphics[scale=0.3]{daisy.png}
+		\end{subfigure}
+		\caption{An example of image preprocessing on our test cow 'Daisy' - original on left, image with gaussian blur and converted to greyscale on right.}
 	\end{figure}
 
 
@@ -211,8 +220,8 @@
 
 
 \section{Conculusion}
-	Through my brief research 
-	I will be retrungin to the VMTRC in the summer and anticipate collecting images and applying these techniques then.
+	My brief research into computer vision with python has revealed the capabilites and limitations of various techniques, and I antipate retuning to the VMTRC in the summer collecting images and applying these techniques then.
+	Provided a reliable, accurate, and cheap system could be developed, there is definitely a market among the large dairy farms in California and Worldwide.
 
 	Future directions for this project to explore include:
 	\begin{itemize}
@@ -224,34 +233,16 @@
 		\item The combination of all the above techniques with cow recognition by assessing coat color. This would alleviate the reliance on finicky RFID detectors but assumes that each cow has a signifigantly diffeerent coat pattern to allow accurate identification.
 	\end{itemize}
 
-	Integration of these techniques with herd managment software and automatic drafting gates 
+	Integration of these techniques with herd managment software and automatic drafting gates would provide dairyman with a valuable managemtn aid.
 
-
-	good technique, need more time
-	will ge timages and play in summer
-	coursera videos to watch.
-
-	(As an aside another aspect of cattle computer vision I will investigate next year is the use of this exact feature to try and identify an individual cow. The 
-
-	future - use stero vision to get depth/scale.
-		video
-		kinect?
-		lameness
+	\newpage
 
 \section{Code}
 \lstinputlisting[breaklines=TRUE]{eBCS.py}	
 
+\newpage
 \bibliographystyle{unsrt}
 \bibliography{ebcs}
 
 
 \end{document}
-
-initailly lloked in to facial recognition tools, 
-but they use eigen faces and color of cow issue.
-also rely on trained haar cascade - will have to train my own?
-
-
-
-had to compile latest verison of opencv using cmake then import to get feature detector.
-
