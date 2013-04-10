@@ -46,6 +46,8 @@ http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/CS7960-AdvImProc-MomentInva
 - feature description - http://docs.opencv.org/doc/tutorials/features2d/feature_detection/feature_detection.html#feature-detection
 - description extractor - http://docs.opencv.org/modules/features2d/doc/common_interfaces_of_descriptor_extractors.html?highlight=surfdescriptorextractor#surfdescriptorextractor
 
+### other moment extractions
+- http://www.eecs.berkeley.edu/Research/Projects/CS/vision/shape/sc_digits.html
 
 - wavelets - extract edges and verticies to model on .
 -- is this haar decompisition?

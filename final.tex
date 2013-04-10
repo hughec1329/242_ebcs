@@ -75,10 +75,10 @@
 		This project will investigate the post-processing of cow images, feature extraction, and machine learning techniques to classify a cow into a body condition class.  
 
 
-		The techniques developed from this project could also be utilised in the estimated 29.3 Billion beef cows in the United States\cite{USDA2013} and billions of cattle worldwide.
+		The techniques developed from this project could also be utilised in the ~30 Billion beef cows in the United States\cite{USDA2013} and billions of cattle worldwide.
 
 		The Research Objective is to investigate the application of computer vision and machine learning techniques to Body Condition Score dairy cattle.
-		The study hypothesis is that these techniques will provide a fast, cost effective technique to BCS a dairy herd and prove a valuable management aid.
+		The study hypothesis is that these techniques will provide a fast, accurate, cost effective technique to BCS a dairy herd and prove a valuable management aid.
 
 
 	\begin{figure}[h!]
@@ -136,14 +136,14 @@
 
 
 	Thresholding is another technique to identify objects within an image.
-	The image is converted to a binary form by setting a threshold for each pixel, pixels above this level are changed to white, those below to black.
+	The image is converted to a binary form by setting a threshold with pixels above this level changed to white and those below to black.
 	This technique is commonly employed with earlier generation canny edge detection (see later), which relied on a white object on a black background.
-	The color chanel that thresholding is performed upon can also be chosen to isolate objects of a certain color.
+	The color channel that thresholding is performed upon can also be chosen to isolate objects of a certain color.
 	An aspect of image acquisition I will investigate is the manipulation of background color, however due to the nature of the environment (milking barn with cattle faeces) it may be unfeasible to change this.
 
 
 	While thresholding would improve edge/feature detection, I had a unique problem in that the north American Holstein has a black and white coat.
-	If the thresholding/feature recognition algorithms were run on the raw image they would pick up every change in coat color as an edge/contour, but this feature has nothing to do with Body condition score (for further explanation please see discussion).
+	If the thresholding/feature recognition algorithms were run on the raw image they would pick up every change in coat color as an edge/contour, but this feature has nothing to do with Body condition score.
  	A solution to this problem was proposed by Jianfei \cite{Jianfei2011} and involved examining the grey histogram of a sample of cow pictures.
 	The normal values for grey whites and grey blacks of most cows were extracted and a threshold based on the median of these two values computed.
 	By mapping all values above this threshold (whites) to their equivalent value below this threshold (blacks), the black and white cow is converted to a black cow, while retaining shadow intensities and details that may assist in classification.
@@ -157,15 +157,15 @@
 	\end{figure}
 \newpage
 \subsection{Feature Extraction}
-	\subsubsection{Using whole picture}
+	\subsubsection{Using entire image}
 	I initially looked into facial recognition techniques to see if I could adopt the large amount of work that has been done in this area.
 
 
 	Eigenfaces were the earliest successful implementation of facial recognition, developed in 1987 by Sirovich and Kirby and implemented in 1991 by Pentland and Turk \cite{Turk1991}.
 	The eigenfaces are found by preforming PCA on the covariance matrix of a large number of face pictures, producing an 'average' face or set of standardised facial ingredients to which any face can be matched.
 	A serious limitation of eigenfaces is their sensitivity to light and scale/rotation. 
-	Since the image is represented as a vector of pixel intensities, if the position of a feature in the image or image lighting, the corresponding pixel intensities will not line up with the eigenfaces and a match will not occur.
-	Eigenfaces are innapropriate for cow BCS recognition as the 'eigencows' will get swamped by coat patterns (where the maximum variance occurs) rather than focusing on size and angles of anatomical landmarks.
+	Since the image is represented as a vector of pixel intensities, if the position of a feature in the image or image lighting changes, the corresponding pixel intensities will not line up with the eigenfaces and a match will not occur.
+	Eigenfaces are inappropriate for cow BCS recognition as the 'eigencows' will get swamped by coat patterns (where the maximum variance occurs) rather than focusing on size and angles of anatomical landmarks.
 
 
 
@@ -184,11 +184,11 @@
 	\end{figure}
 \newpage
 
-	The shape of a cow's rump shape changes dramatically from a skinny, angular cow to a round fat cow and another method of predicting BCS is to detect this shape and match to training image.
+The shape of a cow's rump shape changes dramatically from a skinny, angular cow to a round fat cow, and hence rump contour can be used to predict BCS \cite{Halachmi2008}.
 	Canny developed an edge detection algorithm that examined the first order derivative of the intensity gradient in multiple directions, in order to detect vertical, horizontal, and diagonal edges\cite{Canny1986}.
 	The edges that are located are then passed through various threshold filters to remove noise and ensure edges are continuous
 	Using this method, an outline of the cow can be generated (cow contour), as well the lines representing important anatomical landmarks such as hooks, pins and tailhead.
-	Edges are represented in a binary array, so assuming each image is adjusted for scale and rotation, the location of edges would serve as good predictors of BCS.
+	Edges are represented in a binary array, so assuming each image is adjusted for scale and rotation, the location and size of edges would serve as good predictors of BCS.
 
 	% harris corner detection?
 
@@ -213,7 +213,7 @@
 
 	The moment is a measure of the shape of set of points and can reveal dimensions, area, and orientation. 
 	These descriptors are invariant to scale and rotation, making them an attractive feature for image recognition.
-	After contouring via edge detection (see above) moments can be extracted from an image, and the dimensions, angles, and location between these moments can be used to describe cow shape and hence predict BCS.
+	After contouring via edge detection (see above) moments can be extracted from an image, and the dimensions, angles, and distances between these moments can be used to describe cow shape and hence predict BCS.
 
 
 	
@@ -241,18 +241,18 @@
 	After running the images through the preprocessing steps above to generate features, the resulting training dataset can be tried with various classifying techniques, and cross validation and confusion matrices used to assess accuracy.
 
 
-	Techniques to attempt include: 
+	Classification techniques to attempt include: 
 
 	\begin{itemize}
-		\item Discriminant Analysis - 
-		\item K Nearest Neighbours - flann
-		\item Classification and Decision trees (CART) - 
-		\item Ensemble methods - A combination of above weak classifiers can be combined and each 
-		\item Neural Networks - 
+		\item Discriminant Analysis.
+		\item K Nearest Neighbours/FLANN
+		\item Classification and Decision trees (CART) +/- Random Forests (Bagging)
+		\item Ensemble methods - Boosting and bagging to combine weak classifiers. 
+		\item Neural Networks. 
 	\end{itemize}
 
 	The accuracy and speed for each combination of feature set and classifier will be assessed.
-	Ideally the image processing and classification step would all take place in real time and hence a fast algorithm is required. 
+	Ideally the image processing and classification step would take place in real time and hence a fast algorithm is required. 
 	If, however, it was discovered during testing that a slower algorithm was significantly more accurate then it would be possible to perform the classification in two stages, collection of images from exit lane, and then processing of images by a more powerful server onsite or at our research facility. 
 
 \newpage
@@ -266,7 +266,7 @@
 			Using our current 2d method we are relying on hollow areas been darker due to shading, and indirectly modelling depth.
 			This could also be manipulated by positioning lights around the image capture area to intensify these shadows and hence get a more accurate representation of depth.
 		\item Using a Microsoft Kinect sensor would also provide this depth information, and is a cheap and proven method for 3d modelling.
-			There are numerous libraries and developer kits available for 3d modelling with the kinect, and the ready availability and low cost make this an attractive option.
+			There are numerous libraries and developer kits available for 3d modelling with the kinect, and the ready availability and low cost of the device make this an attractive option.
 		\item The use of single/multiple video monitors. This would eliminate the need for infrared triggers to operate camera, a function could be written to detect when a cow is present in the frame and then select the best image from the video feed. Multiple frames could also be measured and the classification combined to improve prediction accuracy.
 		\item Expansion of cow recognition techniques to diagnose lameness in dairy cattle. Lame cows walk slowly with an arched back and short gait, and measurement of spine angle and stride length are predictive of lameness score \cite{Viazzi2013,Pluk2012}. The techniques above could be adapted to measure these variables and predict lameness score.
 		\item The combination of above techniques with cow recognition by coat color. This would remove reliance on finicky RFID detectors for cow ID but assumes that each cow has a significantly different coat pattern to allow accurate identification.
