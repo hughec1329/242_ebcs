@@ -119,3 +119,8 @@ http://www.pages.drexel.edu/~nk752/tutorials.html
 http://www.simplecv.org/learn/examples/parking.html
 http://www.aishack.in/
 http://jayrambhia.wordpress.com/2013/01/18/sift-keypoint-matching-using-python-opencv/
+
+books
+===
+http://www.packtpub.com/opencv-computer-vision-with-python/book
+google: Introduction to Computer Vision in Python - The Python Papers
